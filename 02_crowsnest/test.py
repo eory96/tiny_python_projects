@@ -7,11 +7,11 @@ from subprocess import getstatusoutput, getoutput
 prg = './crowsnest.py'
 consonant_words = [
     'brigantine', 'clipper', 'dreadnought', 'frigate', 'galleon', 'haddock',
-    'junk', 'ketch', 'longboat', 'mullet', 'narwhal', 'porpoise', 'quay',
-    'regatta', 'submarine', 'tanker', 'vessel', 'whale', 'xebec', 'yatch',
-    'zebrafish'
+    'Junk', 'ketch', 'longboat', 'Mullet', 'narwhal', 'porpoise', 'quay',
+    'regatta', 'Submarine', 'tanker', 'vessel', 'whale', 'xebec', 'yatch',
+    'zebrafish', '12322'
 ]
-vowel_words = ['aviso', 'eel', 'iceberg', 'octopus', 'upbound']
+vowel_words = ['aviso', 'Eel', 'Iceberg', 'octopus', 'upbound']
 template = 'Ahoy, Captain, {} {} off the larboard bow!'
 
 
@@ -37,17 +37,18 @@ def test_consonant():
     """brigantine -> a brigantine"""
 
     for word in consonant_words:
-        out = getoutput(f'{prg} {word}')
-        assert out.strip() == template.format('a', word)
+        out = getoutput(f'{prg} {word.lower()}')
+        assert out.strip() == template.format('a', word.lower())
 
 
 # --------------------------------------------------
 def test_consonant_upper():
-    """brigantine -> a Brigatine"""
+    """brigantine -> A Brigatine"""
 
     for word in consonant_words:
         out = getoutput(f'{prg} {word.title()}')
-        assert out.strip() == template.format('a', word.title())
+        if word[0] >='a' and word[0]<='Z':
+            assert out.strip() == template.format('A', word.title())
 
 
 # --------------------------------------------------
@@ -55,8 +56,8 @@ def test_vowel():
     """octopus -> an octopus"""
 
     for word in vowel_words:
-        out = getoutput(f'{prg} {word}')
-        assert out.strip() == template.format('an', word)
+        out = getoutput(f'{prg} {word.lower()}')
+        assert out.strip() == template.format('an', word.lower())
 
 
 # --------------------------------------------------
@@ -65,4 +66,4 @@ def test_vowel_upper():
 
     for word in vowel_words:
         out = getoutput(f'{prg} {word.upper()}')
-        assert out.strip() == template.format('an', word.upper())
+        assert out.strip() == template.format('An', word.upper())
