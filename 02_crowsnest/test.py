@@ -47,8 +47,7 @@ def test_consonant_upper():
 
     for word in consonant_words:
         out = getoutput(f'{prg} {word.title()}')
-        if word[0] >='a' and word[0]<='Z':
-            assert out.strip() == template.format('A', word.title())
+        assert out.strip() == template.format('A', word.title())
 
 
 # --------------------------------------------------
